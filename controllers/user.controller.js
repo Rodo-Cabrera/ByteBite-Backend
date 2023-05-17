@@ -1,4 +1,14 @@
-const {getAllUsersService, getUsersByIdService, createUserService, editUserService, deleteUserService, getBannedUsersService, getActiveUsersService, getAdminUsersService} = require ('../services/user.service')
+const {
+  getAllUsersService,
+  getUsersByIdService,
+  createUserService,
+  editUserService,
+  deleteUserService,
+  getBannedUsersService,
+  getActiveUsersService,
+  getAdminUsersService } = require('../services/user.service');
+
+const { validationResult } = require('express-validator');
 
 
 
@@ -54,6 +64,10 @@ const getUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return res.status(400).json({ error: error.array() });
+    }
     const userData = req.body;
     const resp = await createUserService(userData);
     res.status(201).json(resp)

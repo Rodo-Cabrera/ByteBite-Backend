@@ -1,6 +1,18 @@
 const { Router } = require('express');
 const route = Router();
-const {getAllUsers, getUserById, getActiveUsers, getAdminUsers, getBannedUsers, createUser, editUser, deleteUser, disableUser, adminUser, unbanUser} = require('../controllers/user.controller')
+const { body } = require('express-validator');
+const {
+  getAllUsers,
+  getUserById,
+  getActiveUsers,
+  getAdminUsers,
+  getBannedUsers,
+  createUser,
+  editUser,
+  deleteUser,
+  disableUser,
+  adminUser,
+  unbanUser } = require('../controllers/user.controller')
 
 route.get('/get-users', getAllUsers);
 
@@ -10,7 +22,14 @@ route.get('/get-banned-users', getBannedUsers);
 
 route.get('/get-active-users', getActiveUsers);
 
-route.post('/create-user', createUser)
+route.post('/create-user',
+  body('email')
+    .not()
+    .isEmpty()
+    .withMessage('Debes introducir un email')
+    .isEmail()
+    .withMessage('Formato de email inválido'),
+    createUser)
 
 route.get('/get-user-by-id/:id', getUserById)
 

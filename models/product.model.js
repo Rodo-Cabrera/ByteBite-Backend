@@ -36,6 +36,14 @@ const productSchema = new Schema({
   quantity: {
     type: Number,
     required: true
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  offer: {
+    type: Boolean,
+    default: false
   }
 });
 

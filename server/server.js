@@ -4,6 +4,7 @@ require('../dB/dBConnection')
 const morgan = require('morgan');
 const cors = require('cors');
 const userRoutes = require('../routes/user.routes');
+const productRoute = require("../routes/product.routes");
 const { portConfig } = require('../config/config')
 
 
@@ -17,7 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use('/users', userRoutes)
+app.use('/users', userRoutes);
+app.use('/prod', productRoute);
 
 
 app.listen(port, () => {
