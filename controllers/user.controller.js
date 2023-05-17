@@ -10,6 +10,8 @@ const {
 
 const { validationResult } = require('express-validator');
 
+const bcrypt = require('bcrypt');
+
 
 
 const getAllUsers = async (req, res) => {
@@ -69,13 +71,17 @@ const createUser = async (req, res) => {
       return res.status(400).json({ error: error.array() });
     }
     const userData = req.body;
+
+    const salt = bcrypt.genSaltSync(10);
+    userData.password = bcrypt.hashSync(userData.password, salt);
+
     const resp = await createUserService(userData);
     res.status(201).json(resp)
   } catch (error) {
     res.status(500).json(error.message);   
   }
 };
- 
+
 const editUser = async (req, res) => {
   try {
     const { id } = req.params;

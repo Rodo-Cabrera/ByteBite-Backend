@@ -16,6 +16,14 @@ const getOfferProductsService = async () => {
   return await Product.find({ offer: true });
 };
 
+const getCategoryProductsService = async (category) => {
+  return await Product.find({ category: category });
+};
+
+const getProductByTittleService = async (tittle) => {
+  return await Product.find({ tittle: tittle });
+};
+
 const getProductByIdService = async (id) => {
   return await Product.findById(id);
 };
@@ -42,4 +50,6 @@ module.exports = {
   getActiveProductsService,
   getSpotlightProductsService,
   getOfferProductsService,
+  getCategoryProductsService,
+  getProductByTittleService,
 };

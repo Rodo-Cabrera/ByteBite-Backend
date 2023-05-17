@@ -1,7 +1,7 @@
 const User = require('../models/user.model');
 
 const getAllUsersService = async () => {
-  return await User.find({})
+  return await User.find({});
 };
 
 const getBannedUsersService = async () => {
@@ -17,7 +17,7 @@ const getAdminUsersService = async () => {
 };
 
 const getUsersByIdService = async (id) => {
-  return await User.findById(id)
+  return await User.findById(id);
 };
 
 const createUserService = async (userData) => {
@@ -30,7 +30,7 @@ const editUserService = async (id, userData) => {
 };
 
 const deleteUserService = async (id) => {
-  return await User.findByIdAndDelete(id)
+  return await User.findByIdAndDelete(id);
 }
 
 module.exports = {

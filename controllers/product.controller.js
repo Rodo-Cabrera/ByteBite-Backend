@@ -7,6 +7,8 @@ const {
   getActiveProductsService,
   getSpotlightProductsService,
   getOfferProductsService,
+  getCategoryProductsService,
+  getProductByTittleService
 } = require("../services/product.service");
 
 const {validationResult} = require ('express-validator')
@@ -41,7 +43,8 @@ const getOfferProducts = async (req, res) => {
 
 const getCategoryProducts = async (req, res) => {
   try {
-    const resp = await getBannedUsersService();
+    const {category} = req.params
+    const resp = await getCategoryProductsService(category);
     res.status(200).json(resp);
   } catch (error) {
     res.status(500).json(error.message);
@@ -70,6 +73,20 @@ const getProductById = async (req, res) => {
   try {
     const { id } = req.params;
     const resp = await getProductByIdService(id);
+    if (!resp) {
+      res.status(404).json("ID de producto inexistente");
+      return;
+    }
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
+const getProductByTittle = async (req, res) => {
+  try {
+    const { tittle } = req.params;
+    const resp = await getProductByTittleService(tittle);
     if (!resp) {
       res.status(404).json("ID de producto inexistente");
       return;
@@ -164,6 +181,36 @@ const offerProduct = async (req, res) => {
   }
 };
 
+const spotlightProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const spotlightTrue = { spotlight: true };
+    const resp = await editProductService(id, spotlightTrue);
+    if (!resp) {
+      res.status(404).json("ID de producto inexistente");
+      return;
+    }
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
+const unSpotlightProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const spotlightFalse = { spotlight: false };
+    const resp = await editProductService(id, spotlightFalse);
+    if (!resp) {
+      res.status(404).json("ID de producto inexistente");
+      return;
+    }
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
 const unOfferProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -193,5 +240,8 @@ module.exports = {
   ableProduct,
   deleteProduct,
   offerProduct,
-  unOfferProduct
-}
+  unOfferProduct,
+  spotlightProduct,
+  unSpotlightProduct,
+  getProductByTittle,
+};

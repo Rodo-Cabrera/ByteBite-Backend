@@ -14,14 +14,17 @@ const {
   ableProduct,
   deleteProduct,
   offerProduct,
-  unOfferProduct
+  unOfferProduct,
+  spotlightProduct,
+  unSpotlightProduct,
+  getProductByTittle
 } = require("../controllers/product.controller");
 const { body } = require("express-validator");
 
 
 productRoute.get("/get-products", getAllProducts);
 
-productRoute.get("/get-spotlight-product", getSpotlightProducts);
+productRoute.get("/get-spotlight-products", getSpotlightProducts);
 
 productRoute.get("/get-category-product/:category", getCategoryProducts);
 
@@ -35,7 +38,13 @@ productRoute.post("/create-product", createProduct);
 
 productRoute.get("/get-product-by-id/:id", getProductById);
 
+productRoute.get("/get-product-by-tittle/:tittle", getProductByTittle);
+
 productRoute.patch("/edit-product/:id", editProduct);
+
+productRoute.patch("/spotlight-product/:id", spotlightProduct);
+
+productRoute.patch("/unspotlight-product/:id", unSpotlightProduct);
 
 productRoute.patch("/offer-product/:id", offerProduct);
 
