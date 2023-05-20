@@ -15,8 +15,9 @@ const {
   unbanUser } = require('../controllers/user.controller');
 
 const { emailValidator } = require('../middlewares/user.validation');
+const { jwtValidator } = require('../middlewares/jwtValidator');
 
-route.get('/get-users', getAllUsers);
+route.get('/get-users', jwtValidator, getAllUsers);
 
 route.get('/get-admin-users', getAdminUsers);
 
