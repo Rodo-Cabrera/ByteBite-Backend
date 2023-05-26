@@ -17,8 +17,12 @@ const {
   unOfferProduct,
   spotlightProduct,
   unSpotlightProduct,
-  getProductByTittle
+  getProductByTittle,
+  uploadIco,
+  uploadImage
 } = require("../controllers/product.controller");
+const multer = require('multer')
+const upload = multer({dest: "uploads/"})
 const { body } = require("express-validator");
 
 
@@ -55,6 +59,10 @@ productRoute.patch("/disable-product/:id", disableProduct);
 productRoute.patch("/able-product/:id", ableProduct);
 
 productRoute.delete("/delete-product/:id", deleteProduct);
+
+productRoute.post("/upload-icon", upload.single("icon"), uploadIco);
+
+productRoute.post("/upload-img", upload.array("img"), uploadImage);
 
 
 module.exports = productRoute;

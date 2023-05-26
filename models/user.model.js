@@ -35,7 +35,12 @@ const userSchema = new Schema({
   role: {
     type: String,
     default: 'client'
+  },
+  cart: {
+    type: Array,
+    default: []
   }
+
 });
 
 module.exports = model('user', userSchema)

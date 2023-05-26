@@ -10,6 +10,9 @@ const {
   getCategoryProductsService,
   getProductByTittleService
 } = require("../services/product.service");
+const cloudinary = require("cloudinary").v2;
+
+const fs = require('fs-extra')
 
 const {validationResult} = require ('express-validator')
 
@@ -98,12 +101,40 @@ const getProductByTittle = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
+
+
   try {  
-    const prodData = req.body;
+    const prodData = req.body;   
     const resp = await createProductService(prodData);
     res.status(201).json(resp);
   } catch (error) {
     res.status(500).json(error.message);
+  }
+};
+
+const uploadIco = async (req, res) => {
+
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "products"
+    })
+    return res.json(result)
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({error: "Error al cargar el ícono"})
+  }
+}
+
+const uploadImage = async (req, res) => {
+  try {
+    const promises = req.files.map((file) =>
+      cloudinary.uploader.upload(file.path, { folder: "products" })
+    );
+    const results = await Promise.all(promises);
+    return res.json(results);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error al cargar imágenes" });
   }
 };
 
@@ -244,4 +275,6 @@ module.exports = {
   spotlightProduct,
   unSpotlightProduct,
   getProductByTittle,
+  uploadIco,
+  uploadImage
 };

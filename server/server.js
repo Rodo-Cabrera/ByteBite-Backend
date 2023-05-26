@@ -9,6 +9,7 @@ const loginRoute = require('../routes/login.routes')
 const { portConfig } = require('../config/config')
 
 
+
 const app = express();
 
 
@@ -17,6 +18,7 @@ const port = portConfig.port;
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
+
 
 
 app.use('/users', userRoutes);
