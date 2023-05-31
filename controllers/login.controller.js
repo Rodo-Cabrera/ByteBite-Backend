@@ -17,6 +17,7 @@ const login = async (req, res) => {
 
     const payload = {
       id: userMatch._id,
+      name: userMatch.name,
       email: userMatch.email,
       role: userMatch.role
     };
@@ -25,9 +26,8 @@ const login = async (req, res) => {
 
     const userName = userMatch.name;
 
-    res.status(200).json({msg :`Bienvenido/a, ${userName}!`, token});
+    res.status(200).json({ msg: `Bienvenido/a, ${userName}!`, token, payload: JSON.stringify(payload) });
 
-    console.log(passwordMatch);
 
   } catch (error) {
     

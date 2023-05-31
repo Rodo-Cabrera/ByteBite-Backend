@@ -1,7 +1,7 @@
 const User = require('../models/user.model');
 
 const getAllUsersService = async () => {
-  return await User.find({});
+  return await User.find({}).select('-password');
 };
 
 const getBannedUsersService = async () => {
