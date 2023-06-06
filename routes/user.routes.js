@@ -47,11 +47,11 @@ route.post(
 
 route.get('/get-user-by-id/:id', getUserById)
 
-route.patch('/edit-user/:id', editUser);
+route.patch('/edit-user/:id', jwtValidatorAdmin, editUser);
 
-route.patch('/disable-user/:id', disableUser);
+route.patch('/disable-user/:id', jwtValidatorAdmin, disableUser);
 
-route.patch('/unban-user/:id', unbanUser)
+route.patch('/unban-user/:id', jwtValidatorAdmin, unbanUser)
 
 route.patch('/user-admin/:id', adminUser);
 

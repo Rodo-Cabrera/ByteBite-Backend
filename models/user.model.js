@@ -34,7 +34,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'client'
+    default: "client"
   },
   cart: {
     type: Array,
