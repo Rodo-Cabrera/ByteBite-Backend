@@ -23,7 +23,6 @@ const {
 } = require("../controllers/product.controller");
 const multer = require('multer')
 const upload = multer({dest: "uploads/"})
-const { body } = require("express-validator");
 
 
 productRoute.get("/get-products", getAllProducts);

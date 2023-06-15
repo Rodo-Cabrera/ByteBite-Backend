@@ -36,6 +36,10 @@ const userSchema = new Schema({
     type: String,
     default: "client"
   },
+  avatar: {
+    type: String,
+    required: false
+  },
   cart: {
     type: Array,
     default: []

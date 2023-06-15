@@ -14,8 +14,6 @@ const cloudinary = require("cloudinary").v2;
 
 const fs = require('fs-extra')
 
-const {validationResult} = require ('express-validator')
-
 
 const getAllProducts = async (req, res) => {
   try {
@@ -118,6 +116,7 @@ const uploadIco = async (req, res) => {
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "products"
     });
+    await fs.remove(req.file.path)
     return res.json(result)
   } catch (error) {
     console.error(error);
@@ -131,6 +130,7 @@ const uploadImage = async (req, res) => {
       cloudinary.uploader.upload(file.path, { folder: "products" })
     );
     const results = await Promise.all(promises);
+    await fs.remove(req.files.path);
     return res.json(results);
   } catch (error) {
     console.error(error);

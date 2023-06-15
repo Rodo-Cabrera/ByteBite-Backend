@@ -12,6 +12,10 @@ const { validationResult } = require('express-validator');
 
 const bcrypt = require('bcrypt');
 
+const cloudinary = require("cloudinary").v2;
+
+const fs = require("fs-extra");
+
 
 
 const getAllUsers = async (req, res) => {
@@ -156,6 +160,19 @@ const adminUser = async (req, res) => {
   }
 }
 
+const uploadAvatar = async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "avatar",
+    });
+    await fs.remove(req.file.path);
+    return res.json(result);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error al cargar el ávatar" });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -167,5 +184,6 @@ module.exports = {
   unbanUser,
   getActiveUsers,
   getBannedUsers,
-  getAdminUsers
+  getAdminUsers,
+  uploadAvatar
 }

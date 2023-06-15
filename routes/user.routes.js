@@ -12,10 +12,13 @@ const {
   deleteUser,
   disableUser,
   adminUser,
-  unbanUser } = require('../controllers/user.controller');
+  unbanUser, 
+  uploadAvatar} = require('../controllers/user.controller');
 
 const { emailValidator } = require('../middlewares/user.validation');
-const { jwtValidator, jwtValidatorAdmin } = require('../middlewares/jwtValidator');
+const { jwtValidator, jwtValidatorAdmin, jwtValidatorOwner } = require('../middlewares/jwtValidator');
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 route.get('/get-users', jwtValidatorAdmin, getAllUsers);
 
@@ -53,9 +56,12 @@ route.patch('/disable-user/:id', jwtValidatorAdmin, disableUser);
 
 route.patch('/unban-user/:id', jwtValidatorAdmin, unbanUser)
 
-route.patch('/user-admin/:id', adminUser);
+route.patch('/user-admin/:id', jwtValidatorOwner, adminUser);
 
 route.delete('/delete-user/:id', deleteUser);
+
+route.post("/upload-avatar", upload.single("avatar"), jwtValidator, uploadAvatar);
+
 
 
 module.exports = route
