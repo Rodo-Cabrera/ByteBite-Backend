@@ -13,7 +13,8 @@ const {
   disableUser,
   adminUser,
   unbanUser, 
-  uploadAvatar} = require('../controllers/user.controller');
+  uploadAvatar,
+  clientUser} = require('../controllers/user.controller');
 
 const { emailValidator } = require('../middlewares/user.validation');
 const { jwtValidator, jwtValidatorAdmin, jwtValidatorOwner } = require('../middlewares/jwtValidator');
@@ -58,7 +59,9 @@ route.patch('/unban-user/:id', jwtValidatorAdmin, unbanUser)
 
 route.patch('/user-admin/:id', jwtValidatorOwner, adminUser);
 
-route.delete('/delete-user/:id', deleteUser);
+route.patch("/user-client/:id", jwtValidatorOwner, clientUser);
+
+route.delete('/delete-user/:id', jwtValidatorOwner, deleteUser);
 
 route.post("/upload-avatar", upload.single("avatar"), jwtValidator, uploadAvatar);
 

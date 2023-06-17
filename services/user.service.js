@@ -17,7 +17,7 @@ const getAdminUsersService = async () => {
 };
 
 const getUsersByIdService = async (id) => {
-  return await User.findById(id);
+  return await User.findById(id).select('-password');
 };
 
 const createUserService = async (userData) => {

@@ -160,6 +160,21 @@ const adminUser = async (req, res) => {
   }
 }
 
+const clientUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const clientMaker = { role: "client" };
+    const resp = await editUserService(id, clientMaker);
+    if (!resp) {
+      res.status(404).json("ID de usuario inexistente");
+      return;
+    }
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
 const uploadAvatar = async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path, {
@@ -185,5 +200,6 @@ module.exports = {
   getActiveUsers,
   getBannedUsers,
   getAdminUsers,
-  uploadAvatar
+  uploadAvatar,
+  clientUser
 }
