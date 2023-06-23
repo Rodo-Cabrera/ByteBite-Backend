@@ -26,7 +26,7 @@ const createUserService = async (userData) => {
 };
 
 const editUserService = async (id, userData) => {
-  return await User.findByIdAndUpdate(id, userData);
+  return await User.findByIdAndUpdate(id, userData, { omitUndefined: true, new: true }).select('-password -__v');
 };
 
 const deleteUserService = async (id) => {

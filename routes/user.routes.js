@@ -23,11 +23,11 @@ const upload = multer({ dest: "uploads/" });
 
 route.get('/get-users', jwtValidatorAdmin, getAllUsers);
 
-route.get('/get-admin-users', getAdminUsers);
+route.get('/get-admin-users', jwtValidatorAdmin, getAdminUsers);
 
-route.get('/get-banned-users', getBannedUsers);
+route.get('/get-banned-users', jwtValidatorAdmin, getBannedUsers);
 
-route.get('/get-active-users', getActiveUsers);
+route.get('/get-active-users', jwtValidatorAdmin, getActiveUsers);
 
 route.post(
   "/create-user",
@@ -49,7 +49,7 @@ route.post(
   createUser
 );
 
-route.get('/get-user-by-id/:id', getUserById)
+route.get('/get-user-by-id/:id', jwtValidator, getUserById)
 
 route.patch('/edit-user/:id', jwtValidatorAdmin, editUser);
 
