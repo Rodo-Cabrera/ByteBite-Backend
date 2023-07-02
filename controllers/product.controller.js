@@ -153,6 +153,37 @@ const editProduct = async (req, res) => {
   }
 };
 
+const prodOfferPrice = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { offerPrice } = req.body;
+    const newOfferPrice = offerPrice
+    const resp = await editProductService(id, newOfferPrice);
+    if (!resp) {
+      res.status(404).json('ID de producto inexistente');
+      return
+    }
+    res.status(200).json(resp)
+  } catch (error) {
+    res.status(500).json(error.message)
+  }
+};
+
+const editProdPrice = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { price } = req.body;
+    const resp = await editProductService(id, { price });
+    if (!resp) {
+      res.status(404).json("ID de producto inexistente");
+      return;
+    }
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
 const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -276,5 +307,7 @@ module.exports = {
   unSpotlightProduct,
   getProductByTittle,
   uploadIco,
-  uploadImage
+  uploadImage,
+  prodOfferPrice,
+  editProdPrice
 };

@@ -19,7 +19,9 @@ const {
   unSpotlightProduct,
   getProductByTittle,
   uploadIco,
-  uploadImage
+  uploadImage,
+  prodOfferPrice,
+  editProdPrice
 } = require("../controllers/product.controller");
 const {jwtValidator, jwtValidatorAdmin, jwtValidatorOwner, jwtValidatorUser} = require("../middlewares/jwtValidator")
 const multer = require('multer')
@@ -57,6 +59,10 @@ productRoute.patch("/unoffer-product/:id", jwtValidatorAdmin, unOfferProduct);
 productRoute.patch("/disable-product/:id", jwtValidatorAdmin, disableProduct);
 
 productRoute.patch("/able-product/:id", jwtValidatorAdmin, ableProduct);
+
+productRoute.patch("/set-offer-price/:id", jwtValidatorAdmin, prodOfferPrice);
+
+productRoute.patch("/edit-price/:id", jwtValidatorAdmin, editProdPrice);
 
 productRoute.delete("/delete-product/:id", jwtValidatorOwner, deleteProduct);
 
