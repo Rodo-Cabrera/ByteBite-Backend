@@ -148,6 +148,7 @@ const editProduct = async (req, res) => {
       return;
     }
     res.status(200).json(resp);
+    console.log(prodData)
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -163,7 +164,8 @@ const prodOfferPrice = async (req, res) => {
       res.status(404).json('ID de producto inexistente');
       return
     }
-    res.status(200).json(resp)
+    res.status(200).json(resp);
+    console.log(newOfferPrice);
   } catch (error) {
     res.status(500).json(error.message)
   }
@@ -179,6 +181,7 @@ const editProdPrice = async (req, res) => {
       return;
     }
     res.status(200).json(resp);
+    console.log(price);
   } catch (error) {
     res.status(500).json(error.message);
   }
