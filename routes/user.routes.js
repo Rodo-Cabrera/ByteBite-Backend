@@ -17,7 +17,7 @@ const {
   clientUser} = require('../controllers/user.controller');
 
 const { emailValidator } = require('../middlewares/user.validation');
-const { jwtValidator, jwtValidatorAdmin, jwtValidatorOwner } = require('../middlewares/jwtValidator');
+const { jwtValidator, jwtValidatorAdmin, jwtValidatorOwner, jwtValidatorUser } = require('../middlewares/jwtValidator');
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
@@ -51,7 +51,7 @@ route.post(
 
 route.get('/get-user-by-id/:id', jwtValidator, getUserById)
 
-route.patch('/edit-user/:id', jwtValidatorAdmin, editUser);
+route.patch('/edit-user/:id', jwtValidatorUser, editUser);
 
 route.patch('/disable-user/:id', jwtValidatorAdmin, disableUser);
 

@@ -37,6 +37,17 @@ const login = async (req, res) => {
 
 };
 
+const comparePassword = async (req, res) => {
+  const { password } = req.body;
+
+  try {
+    const pwVerify = bcrypt.compareSync(password)
+  } catch (error) {
+    
+  }
+
+}
+
 module.exports = {
   login
 };
