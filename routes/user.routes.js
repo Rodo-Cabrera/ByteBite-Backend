@@ -63,7 +63,7 @@ route.patch("/user-client/:id", jwtValidatorOwner, clientUser);
 
 route.delete('/delete-user/:id', jwtValidatorOwner, deleteUser);
 
-route.post("/upload-avatar", upload.single("avatar"), jwtValidator, uploadAvatar);
+route.post("/upload-avatar/:id", upload.single("avatar"), jwtValidator, uploadAvatar);
 
 
 

@@ -177,6 +177,8 @@ const clientUser = async (req, res) => {
 
 const uploadAvatar = async (req, res) => {
   try {
+    const { id } = req.params;
+    const avatarUrl = {avatar: `${req.file.path}`}
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "avatar",
     });
